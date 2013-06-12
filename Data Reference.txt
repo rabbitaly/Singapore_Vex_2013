@@ -1,0 +1,11 @@
+Deploy first tier 
+Potentiometer count: 450
+
+Deploy second tier
+potentiometer count: 1200
+
+Cross ramp first tier
+Potentiometer count: 400
+
+Push ball off bridge
+Potentiometer value: 900
