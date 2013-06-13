@@ -215,7 +215,7 @@ void crossRamp(int power, int distance, int distanceBeforeRamp)
 	}
 	SensorValue[backLeft] = 0;
 	SensorValue[backRight] = 0;
-	while (abs(SensorValue[backLeft]) < 500 && abs(SensorValue[backRight]) < 500)
+	while (abs(SensorValue[backLeft]) < 600 && abs(SensorValue[backRight]) < 600)
 	{
 		motor[leftBack] = power;
 		motor[leftMiddle] = power;
@@ -223,8 +223,8 @@ void crossRamp(int power, int distance, int distanceBeforeRamp)
 		motor[rightBack] = power;
 		motor[rightMiddle] = power;
 		motor[rightFront] = power;
-		motor[firstTierLeft] = 30;
-		motor[firstTierRight] = 30;
+		motor[firstTierLeft] = 40;
+		motor[firstTierRight] = 40;
 	}
 	SensorValue[backLeft] = 0;
 	SensorValue[backRight] = 0;
@@ -318,7 +318,7 @@ void turnLeft(int power, int distance)
 }
 
 // Move Sharp Right
-void moveSharpRight(int power, int distance)
+void moveSharpRight(int power, int secondPower, int distance)
 {
 	SensorValue[backLeft] = 0;
 	while (abs(SensorValue[backLeft]) < distance)
@@ -326,9 +326,9 @@ void moveSharpRight(int power, int distance)
 		motor[leftBack] = abs(power);
 		motor[leftMiddle] = abs(power);
 		motor[leftFront] = abs(power);
-		motor[rightBack] = 0;
-		motor[rightMiddle] = 0;
-		motor[rightFront] = 0;
+		motor[rightBack] = abs(secondPower);
+		motor[rightMiddle] = abs(secondPower);
+		motor[rightFront] = abs(secondPower);
 	}
 	motor[leftBack] = 0;
 	motor[leftMiddle] = 0;
