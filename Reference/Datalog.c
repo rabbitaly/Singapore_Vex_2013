@@ -49,9 +49,9 @@ task main()
 	while(SensorValue[bumperLeft]==0)
 	{
 	}
+	ClearTimer(T4);
 	moveSecondTierUp(127,450);
 	moveSecondTierDown(127,50);
-	/*
 	intake = 1;
 	wait10Msec(50);
 	moveStraightDistance(127,200);
@@ -69,9 +69,29 @@ task main()
 	moveSharpRight(127,600);
 	moveStraightDistance(127,100);
 	stopPid(0.6,0.3);
-	*/
-	//crossRamp(127,3000,400);
-	//intakePushTime(127,3000);
+
+	moveFirstTierUp(127,1800);
+	moveFirstTierDown(127,50);
+	crossRamp(127,300,0);
+	moveStraightTime(-127, 500);
+	if (time1[T4] < 10000)
+	{
+		moveSharpRight(127,50);
+		moveStraightDistance(127,250);
+		stopPid(0.6,0.3);
+		pushBridge(127,800);
+		moveSecondTierUp(100,200);
+		moveStraightDistance(-127,100);
+		turnRight(127,250);
+		alignFoward(127);
+		moveStraightDistance(127,100);
+		stopPid(0.6,0.3);
+		moveStraightLight(127);
+		turnLeft(127,250);
+		moveStraightDistance(127,100);
+		stopPid(0.6,0.3);
+		stopLift();
+	}
   StopTask(intakeStart);
 
 }
