@@ -22,27 +22,78 @@
 
 #include "FnLibSingaporeVex2013.h";
 
+int intake = 0;
+
+task intakeStart()
+{
+	while (true)
+	{
+		if (intake == 1)
+		{
+			motor[intakeRollers] = -127;
+		}
+		else if (intake == -1)
+		{
+			motor[intakeRollers] = 127;
+		}
+		else
+		{
+			motor[intakeRollers] = 0;
+		}
+	}
+}
+
 task main()
 {
-	/* Starting at top right position, push ball to scoring zone */
-	// Deploy - Second tier up until it is 90 degree
+	StartTask(intakeStart);
+	/*while(SensorValue[bumperLeft]==0)
+	{
+	}
+	*/
+	ClearTimer(T4);
 	moveSecondTierUp(127,450);
-	// Rest second tier
 	moveSecondTierDown(127,50);
-	// Deploy big ball intake
-	moveFirstTierUp(127,1200);
-	// Rest first tier
-	moveFirstTierDown(127,50);
-	// Intake 2 more balls
-	intakeWhileMoving(127,1000);
-	// Turn left
-	turnLeft(127,100);
-	// Move straight until aligned to line, then move forwards a little
-	moveStraightLight(127,50);
-	moveStraightDistance(127,1000);
-	// Turn left
-	turnLeft(127,100);
-	// Cross Ramp
-	crossRamp(127,3000,400);
-	intakePushTime(127,3000);
+	intake = 1;
+	motor[secondTier]=-127;
+	wait10Msec(50);
+	motor[secondTier]=0;
+	moveStraightDistance(127,200);
+	stopPid(0.6,0.3);
+	wait10Msec(10);
+	moveStraightDistance(30, 200);
+	stopPid(0.6,0.3);
+	wait10Msec(150);
+	//intake = 0;
+	turnRight(100,250);
+	moveStraightDistance(100,100);
+	alignFoward(127);
+	wait10Msec(5);
+	stopDrive();
+	moveSharpRight(127,-10,650);
+	moveStraightDistance(127,100);
+	turnRight(127,100);
+	stopPid(0.6,0.3);
+	wait10Msec(50);
+	//moveFirstTierUp(127,1800);
+	//moveFirstTierDown(127,50);
+	crossRamp(127,300,0);
+	moveStraightTime(-127, 1000);
+
+		moveSharpRight(127,0,50);
+		moveStraightDistance(127,250);
+		stopPid(0.6,0.3);
+		pushBridge(127,800);
+		moveSecondTierUp(100,200);
+		moveStraightDistance(-127,100);
+		turnRight(127,250);
+		alignFoward(127);
+		moveStraightDistance(127,100);
+		stopPid(0.6,0.3);
+		moveStraightLight(127);
+		turnLeft(127,250);
+		moveStraightDistance(127,100);
+		stopPid(0.6,0.3);
+		stopLift();
+
+	StopTask(intakeStart);
 }

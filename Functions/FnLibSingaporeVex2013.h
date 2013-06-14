@@ -223,8 +223,8 @@ void crossRamp(int power, int distance, int distanceBeforeRamp)
 		motor[rightBack] = power;
 		motor[rightMiddle] = power;
 		motor[rightFront] = power;
-		motor[firstTierLeft] = 40;
-		motor[firstTierRight] = 40;
+		motor[firstTierLeft] = 60;
+		motor[firstTierRight] = 60;
 	}
 	SensorValue[backLeft] = 0;
 	SensorValue[backRight] = 0;

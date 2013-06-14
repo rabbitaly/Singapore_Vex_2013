@@ -4,9 +4,9 @@
 #pragma config(Sensor, in3,    leftLight,      sensorLineFollower)
 #pragma config(Sensor, in4,    rightLight,     sensorLineFollower)
 #pragma config(Sensor, in5,    backLight,      sensorLineFollower)
-#pragma config(Sensor, dgtl1,  bumperLeft,     sensorTouch)
-#pragma config(Sensor, dgtl2,  bumperRight,    sensorTouch)
 #pragma config(Sensor, dgtl3,  led,            sensorLEDtoVCC)
+#pragma config(Sensor, dgtl10, bumperRight,    sensorTouch)
+#pragma config(Sensor, dgtl11, bumperLeft,     sensorTouch)
 #pragma config(Sensor, I2C_1,  leftBack,       sensorQuadEncoderOnI2CPort,    , AutoAssign)
 #pragma config(Sensor, I2C_2,  rightBack,      sensorQuadEncoderOnI2CPort,    , AutoAssign)
 #pragma config(Motor,  port1,           leftBack,      tmotorVex393HighSpeed, openLoop, encoder, encoderPort, I2C_1, 1000)
@@ -44,16 +44,16 @@ task LED()
 
 	while(true)
 	{
-		int f = programs;
-		for(int i = 0;i<=f;i++)
+
+		for(int i = 0;i<=programs;i++)
 		{
 			SensorValue[led]=1;
 			wait1Msec(300);
 			SensorValue[led]=0;
-			wait10Msec(300);
+			wait1Msec(300);
 		}
 
-		wait1Msec(2000);
+		wait1Msec(1000);
 	}
 }
 
@@ -115,7 +115,7 @@ void pre_auton()
 
 
 		// All activities that occur before the competition starts
-		// Example: clearing encoders, setting servo positions, ...
+		// Example: clearing encoders, setting servo  positions, ...
 	}
 
 	/////////////////////////////////////////////////////////////////////////////////////////
