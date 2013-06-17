@@ -188,20 +188,20 @@ task autonomous()
 		stopPid(0.6,0.3);
 		wait10Msec(150);
 		intake = 0;
-		turnRight(100,250);
-		moveStraightDistance(100,100);
-		alignFoward(127);
-		wait10Msec(5);
-		stopDrive();
-		moveSharpRight(127,-10,650);
-		moveStraightDistance(127,100);
-		wait10Msec(50);
+		turnRight(100,400);
+		wait1Msec(200);
+		moveStraightDistance(100,400);
+	  stopPid(0.6,0.3);
+		moveStraightDistance(-127,100);
+		stopPid(0.6,0.3);
+		turnLeft(90, 200);
+		moveStraightDistance(127,700);
+
 		//moveFirstTierUp(127,1800);
 		//moveFirstTierDown(127,50);
 		/*
 		crossRamp(127,300,0);
 		moveStraightTime(-127, 1000);
-
 		moveSharpRight(127,0,50);
 		moveStraightDistance(127,250);
 		stopPid(0.6,0.3);

@@ -326,9 +326,9 @@ void moveSharpRight(int power, int secondPower, int distance)
 		motor[leftBack] = abs(power);
 		motor[leftMiddle] = abs(power);
 		motor[leftFront] = abs(power);
-		motor[rightBack] = abs(secondPower);
-		motor[rightMiddle] = abs(secondPower);
-		motor[rightFront] = abs(secondPower);
+		motor[rightBack] = secondPower;
+		motor[rightMiddle] = secondPower;
+		motor[rightFront] = secondPower;
 	}
 	motor[leftBack] = 0;
 	motor[leftMiddle] = 0;
@@ -339,14 +339,14 @@ void moveSharpRight(int power, int secondPower, int distance)
 }
 
 // Move Sharp Left
-void moveSharpLeft(int power, int distance)
+void moveSharpLeft(int power, int secondPower, int distance)
 {
 	SensorValue[backRight] = 0;
 	while (abs(SensorValue[backRight]) < distance)
 	{
-		motor[leftBack] = 0;
-		motor[leftMiddle] = 0;
-		motor[leftFront] = 0;
+		motor[leftBack] = secondPower;
+		motor[leftMiddle] = secondPower;
+		motor[leftFront] = secondPower;
 		motor[rightBack] = abs(power);
 		motor[rightMiddle] = abs(power);
 		motor[rightFront] = abs(power);
