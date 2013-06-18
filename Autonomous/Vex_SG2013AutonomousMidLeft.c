@@ -22,30 +22,52 @@
 
 #include "FnLibSingaporeVex2013.h";
 
+int intake = 0;
+
+task intakeStart()
+{
+	while (true)
+	{
+		if (intake == 1)
+		{
+			motor[intakeRollers] = -127;
+		}
+		else if (intake == -1)
+		{
+			motor[intakeRollers] = 127;
+		}
+		else
+		{
+			motor[intakeRollers] = 0;
+		}
+	}
+}
+
 task main()
 {
-	/* Starting at top left position, push ball to scoring zone */
-	// Deploy - Second tier up until it is 90 degree
+	/*Mid Left*/
+	StartTask(intakeStart);
+	ClearTimer(T4);
 	moveSecondTierUp(127,450);
-	// Rest second tier
-	moveSecondTierDown(-127,50);
-	// Deploy big ball intake
-	moveFirstTierUp(127,1200);
-	// Rest first tier
-	moveFirstTierDown(127,50);
-	// Align to line
-	moveStraightLight(127,50);
-	moveStraightDistance(127,1000);
-	// Turn 90 degrees, perpendicular to bridge
-	turnRight(127,300);
-	// Move forward for 2000, then raise arm to 900*, while pushing forward at 20, then move back
-	pushBridge(127,2000,900);
-	// Turn and face parallel to bridge
-	turnLeft(127,300);
-	// Align to next line
-	moveStraightLight(127,1000);
-	// Turn to face ramp with balls
-	turnLeft(127,300);
-	// Angle of lift to cross ramp is 400*
-	crossRamp(127,1000,400);
+	moveSecondTierDown(127,50);
+	intake = 1;
+	motor[secondTier]=-127;
+	wait10Msec(50);
+	motor[secondTier]=0;
+	moveStraightDistance(127,300);
+	stopPid(0.6,0.3);
+	alignFoward(127);
+	turnLeft(100,300);
+	moveStraightDistance(127,200);
+	stopPid(0.6,0.3);
+	turnRight(100,300);
+	moveFirstTierUp(100,1200);
+	motor[firstTierLeft]= 20;
+	motor[firstTierRight]= 20;
+	moveStraightDistance(127,100);
+	stopPid(0.6,0.3);
+	intakePushTime(127,3000);
+	moveStraightDistance(-127,100);
+	moveFirstTierDown(100,50);
+	StopTask(intakeStart);
 }

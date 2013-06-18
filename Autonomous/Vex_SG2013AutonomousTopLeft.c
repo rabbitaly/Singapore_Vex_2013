@@ -45,56 +45,9 @@ task intakeStart()
 }
 
 task main()
-{
+
+	/*Top Left*/
 	StartTask(intakeStart);
-	while(SensorValue[bumperLeft]==0)
-	{
-	}
-	ClearTimer(T4);
-	moveSecondTierUp(127,450);
-	moveSecondTierDown(127,50);
-	intake = 1;
-	/*motor[secondTier]=-127;
-	wait10Msec(50);
-	motor[secondTier]=0;*/
-	moveStraightDistance(127,200);
-	stopPid(0.6,0.3);
-	wait10Msec(10);
-	moveStraightDistance(30, 200);
-	stopPid(0.6,0.3);
-	wait10Msec(150);
-	intake = 0;
-	turnRight(100,250);
-	moveStraightDistance(100,100);
-	alignFoward(127);
-	wait10Msec(5);
-	stopDrive();
-	moveSharpRight(127,-10,650);
-	moveStraightDistance(127,100);
-	wait10Msec(50);
-	//moveFirstTierUp(127,1800);
-	//moveFirstTierDown(127,50);
-	/*
-	crossRamp(127,300,0);
-	moveStraightTime(-127, 1000);
-	moveSharpRight(127,0,50);
-	moveStraightDistance(127,250);
-	stopPid(0.6,0.3);
-	pushBridge(127,800);
-	moveSecondTierUp(100,200);
-	moveStraightDistance(-127,100);
-	turnRight(127,250);
-	alignFoward(127);
-	moveStraightDistance(127,100);
-	stopPid(0.6,0.3);
-	moveStraightLight(127);
-	turnLeft(127,250);
-	moveStraightDistance(127,100);
-	stopPid(0.6,0.3);
-	stopLift();
-	StopTask(intakeStart);
-	*/
-	/*
 	ClearTimer(T4);
 	moveSecondTierUp(127,450);
 	moveSecondTierDown(127,50);
@@ -108,37 +61,14 @@ task main()
 	moveStraightDistance(30, 200);
 	stopPid(0.6,0.3);
 	wait10Msec(150);
-	//intake = 0;
-	turnRight(100,250);
-	moveStraightDistance(100,100);
-	alignFoward(127);
-	wait10Msec(5);
-	stopDrive();
-	moveSharpRight(127,-10,650);
-	moveStraightDistance(127,100);
-	turnRight(127,100);
+	intake = 0;
+	turnRight(100,400);
+	wait1Msec(200);
+	moveStraightDistance(100,400);
 	stopPid(0.6,0.3);
-	wait10Msec(50);
-	//moveFirstTierUp(127,1800);
-	//moveFirstTierDown(127,50);
-	crossRamp(127,300,0);
-	moveStraightTime(-127, 1000);
-	moveSharpRight(127,0,50);
-	moveStraightDistance(127,250);
-	stopPid(0.6,0.3);
-	pushBridge(127,800);
-	moveSecondTierUp(100,200);
 	moveStraightDistance(-127,100);
-	turnRight(127,250);
-	alignFoward(127);
-	moveStraightDistance(127,100);
 	stopPid(0.6,0.3);
-	moveStraightLight(127);
-	turnLeft(127,250);
-	moveStraightDistance(127,100);
-	stopPid(0.6,0.3);
-	stopLift();
-	*/
-
+	turnLeft(90, 200);
+	moveStraightDistance(127,700);
 	StopTask(intakeStart);
 }

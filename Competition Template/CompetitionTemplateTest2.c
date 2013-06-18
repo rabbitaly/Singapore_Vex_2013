@@ -144,8 +144,7 @@ void pre_auton()
 	// Autonomous and Tele-Op modes. You will need to manage all user created tasks if set to false.
 	bStopTasksBetweenModes = true;
 
-	StopTask(LED);
-	StopTask(selector);
+
 
 
 	// All activities that occur before the competition starts
@@ -169,11 +168,8 @@ task autonomous()
 
 	if(programs ==0)
 	{
+		/*Top Left*/
 		StartTask(intakeStart);
-		/*while(SensorValue[bumperLeft]==0)
-		{
-		}
-		*/
 		ClearTimer(T4);
 		moveSecondTierUp(127,450);
 		moveSecondTierDown(127,50);
@@ -191,40 +187,50 @@ task autonomous()
 		turnRight(100,400);
 		wait1Msec(200);
 		moveStraightDistance(100,400);
-	  stopPid(0.6,0.3);
+		stopPid(0.6,0.3);
 		moveStraightDistance(-127,100);
 		stopPid(0.6,0.3);
 		turnLeft(90, 200);
 		moveStraightDistance(127,700);
-
-		//moveFirstTierUp(127,1800);
-		//moveFirstTierDown(127,50);
-		/*
-		crossRamp(127,300,0);
-		moveStraightTime(-127, 1000);
-		moveSharpRight(127,0,50);
-		moveStraightDistance(127,250);
-		stopPid(0.6,0.3);
-		pushBridge(127,800);
-		moveSecondTierUp(100,200);
-		moveStraightDistance(-127,100);
-		turnRight(127,250);
-		alignFoward(127);
-		moveStraightDistance(127,100);
-		stopPid(0.6,0.3);
-		moveStraightLight(127);
-		turnLeft(127,250);
-		moveStraightDistance(127,100);
-		stopPid(0.6,0.3);
-		stopLift();
 		StopTask(intakeStart);
-		*/
 	}
 	else if(programs ==1)
 	{
+		/*Top Right*/
+		StartTask(intakeStart);
+		ClearTimer(T4);
+		moveSecondTierUp(127,450);
+		moveSecondTierDown(127,50);
+		intake = 1;
+		motor[secondTier]=-127;
+		wait10Msec(50);
+		motor[secondTier]=0;
+		moveStraightDistance(127,200);
+		stopPid(0.6,0.3);
+		wait10Msec(10);
+		moveStraightDistance(30, 200);
+		stopPid(0.6,0.3);
+		wait10Msec(150);
+		intake = 0;
+		turnLeft(100,400);
+		wait1Msec(200);
+		moveStraightDistance(100,400);
+		stopPid(0.6,0.3);
+		moveStraightDistance(-127,100);
+		stopPid(0.6,0.3);
+		turnRight(90, 200);
+		moveStraightDistance(127,700);
+		StopTask(intakeStart);
 	}
 	else if(programs ==2)
 	{
+		/*Mid Left*/
+		ClearTimer(T4);
+		moveSecondTierUp(127,450);
+		moveSecondTierDown(127,50);
+		motor[secondTier]=-127;
+		wait10Msec(50);
+		motor[secondTier]=0;
 	}
 }
 
