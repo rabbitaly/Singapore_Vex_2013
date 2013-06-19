@@ -8,8 +8,14 @@ void moveStraightDistance(int power, int distance)
 {
 	SensorValue[backLeft] = 0;
 	SensorValue[backRight] = 0;
+	int error,olderror;
+	float p = 0.9;
+	float d=0.5;
+	int adjust;
 	while (abs(SensorValue[backLeft]) < distance && abs(SensorValue[backRight]) < distance)
 	{
+		error = abs(SensorValue[backRight]) - abs(SensorValue[backLeft]);
+		adjust = (int)(error*p+olderror*d);
 		motor[leftBack] = power;
 		motor[leftMiddle] = power;
 		motor[leftFront] = power;
@@ -129,7 +135,6 @@ void alignFoward(int power)
 		else
 		{
 			detected = "none";
-
 		}
 	}
 
@@ -255,16 +260,10 @@ void pushBridge(int power, int angle)
 		motor[firstTierLeft] = power;
 		motor[firstTierRight] = power;
 	}
-	motor[leftBack] = 127;
-	motor[leftMiddle] = 127;
-	motor[leftFront] = 127;
-	motor[rightBack] = 127;
-	motor[rightMiddle] = 127;
-	motor[rightFront] = 127;
 	motor[firstTierLeft] = 20;
 	motor[firstTierRight] = 20;
 	wait10Msec(50);
-		motor[leftBack] = 0;
+	motor[leftBack] = 0;
 	motor[leftMiddle] = 0;
 	motor[leftFront] = 0;
 	motor[rightBack] = 0;

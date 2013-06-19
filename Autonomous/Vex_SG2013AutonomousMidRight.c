@@ -24,28 +24,52 @@
 
 task main()
 {
-	/* Starting at top left position, push ball to scoring zone */
-	// Deploy - Second tier up until it is 90 degree
+	/*Mid Right*/
+	StartTask(intakeStart);
+	ClearTimer(T4);
+	intake = 1;
 	moveSecondTierUp(127,450);
-	// Rest second tier
-	moveSecondTierDown(-127,50);
-	// Deploy big ball intake
+	moveSecondTierDown(127,50);
+	motor[secondTier]=-127;
+	wait10Msec(50);
+	motor[secondTier]=0;
+	moveStraightDistance(100,50);
+	stopPid(0.6,0.3);
+	intake = 0;
+	moveStraightDistance(127,1800);
+	stopPid(0.6,0.3);
 	moveFirstTierUp(127,1200);
-	// Rest first tier
-	moveFirstTierDown(127,50);
-	// Align to line
-	moveStraightLight(127,50);
-	moveStraightDistance(127,1000);
-	// Turn 90 degrees, perpendicular to bridge
-	turnLeft(127,300);
-	// Move forward for 2000, then raise arm to *900 while pushing forward at 20, then move back
-	pushBridge(127,2000,900);
-	// Turn and face parallel to bridge
-	turnRight(127,300);
-	// Align to next line
-	moveStraightLight(127,1000);
-	// Turn to face ramp with balls
-	turnRight(127,300);
-	// Angle of lift to cross ramp is 400*
-	crossRamp(127,1000,400);
+	motor[firstTierLeft]=20;
+	motor[firstTierRight]=20;
+	moveStraightDistance(127,200);
+	stopPid(0.6,0.3);
+	intake = -1;
+	wait10Msec(300);
+	intake = 0;
+	moveStraightDistance(-127,200);
+	stopPid(0.6,0.3);
+	moveFirstTierDown(127,20);
+	turnLeft(127,70);
+	moveStraightDistance(-127,1500);
+	while(SensorValue[bumperLeft]==0)
+	{
+	}
+	moveStraightDistance(127,100);
+	pushBridge(80,900);
+	moveStraightDistance(100,200);
+	moveStraightDistance(-100,420);
+	stopPid(0.6,0.3);
+	while(SensorValue[bumperLeft]==0)
+	{
+	}
+	moveStraightDistance(100,300);
+	stopPid(0.6,0.3);
+	alignFoward(100);
+	turnLeft(127,250);
+	moveFirstTierUp(127,900);
+	moveStraightDistance(100,800);
+	stopPid(0.6,0.3);
+	stopLift();
+	moveStraightDistance(-100,100);
+	stopPid(0.6,0.3);
 }
