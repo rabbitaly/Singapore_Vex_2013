@@ -81,7 +81,8 @@ task main()
 	StartTask(intakeStart);
 	//StartTask(armcontrol);
 	//armPos = 1000;
-	ClearTimer(T4);
+	// Start from hanging zone (Top left)
+	/*ClearTimer(T4);
 	moveSecondTierUp(127,450);
 	moveSecondTierDown(127,50);
 	intake = 1;
@@ -100,13 +101,11 @@ task main()
 	moveFirstTierUp(127,400);
 	motor[firstTierLeft]=20;
 	motor[firstTierRight]=20;
-	while (SensorValue[leftLight] > 1800)
-	{
-		moveStraight(127);
-	}
-	stopDrive();
-	stopLift();
 	intake = 0;
+	moveStraightDistance(127, 1200);
+	moveFirstTierDown(127, 400);
+
+	// Continue from middle zone (Left)
 	while (SensorValue[bumperLeft] == 0)
 	{
 	}
@@ -127,15 +126,108 @@ task main()
 	wait10Msec(300);
 	intake = 0;
 	moveStraightDistance(-50,250);
-	stopPid(0.6,0.3);
 	moveFirstTierDown(127,50);
-	turnRight(127,760);
-	moveStraightDistance(127,1800);
-	stopPid(0.6,0.3);
-	turnLeft(127,380);
-	moveStraightDistance(127,500);
-	stopPid(0.6,0.3);
-	while(SensorValue[bumperLeft] == 0)
+	turnLeft(127,50);
+	moveStraightDistance(-50, 1300);
+	*/
+
+	// Continue from Middle Zone (Left)
+	/*while (SensorValue[bumperLeft] == 0)
 	{
 	}
+	moveStraightDistance(127, 1500);
+	alignFoward(127);
+	intake = 1;
+	moveStraightDistance(40, 500);
+	wait10Msec(50);
+	intake = 0;
+	*/
+
+	// Continue from Middle Zone (Right)
+	/*
+	while (SensorValue[bumperLeft] == 0)
+	{
+	}
+	moveStraightDistance(-127,300);
+	moveFirstTierUp(127,400);
+	motor[firstTierLeft]=20;
+	motor[firstTierRight]=20;
+	moveStraightDistance(127,1800);
+	moveFirstTierDown(127,400);
+
+	// Continue from Hanging Zone (Top right)
+	while (SensorValue[bumperLeft] == 0)
+	{
+	}
+	intake = 1;
+	moveStraightDistance(30,500);
+	wait10Msec(170);
+	intake = 0;
+	turnLeft(127,650);
+	intake = 1;
+	moveFirstTierUp(127,400);
+	motor[firstTierLeft]=20;
+	motor[firstTierRight]=20;
+	intake = 0;
+	moveStraightDistance(127, 1300);
+	moveFirstTierDown(127, 400);
+
+	// Continue from Middle Zone (Right)
+	while (SensorValue[bumperLeft] == 0)
+	{
+	}
+	moveStraightDistance(127,350);
+	stopPid(0.6,0.3);
+	alignFoward(127);
+	moveStraightDistance(127,100);
+	stopPid(0.6,0.3);
+	wait10Msec(10);
+	turnLeft(127,380);
+	moveStraightDistance(127,1400);
+	stopPid(0.6,0.3);
+	moveFirstTierUp(127,1100);
+	motor[firstTierLeft] = 20;
+	motor[firstTierRight] = 20;
+	moveStraightDistance(50,350);
+	intake = -1;
+	wait10Msec(300);
+	intake = 0;
+	moveStraightDistance(-50,250);
+	moveFirstTierDown(127,50);
+	turnRight(127,50);
+	moveStraightDistance(-50, 1300);
+	*/
+
+	// Continue from Middle Zone (Right)
+	while (SensorValue[bumperLeft] == 0)
+	{
+	}
+	moveFirstTierUp(127,1100);
+	motor[firstTierLeft] = 20;
+	motor[firstTierRight] = 20;
+	moveStraightDistance(127,800);
+	moveStraightDistance(-127,600);
+
+	// Continue from Middle Zone (Right)
+	while (SensorValue[bumperLeft] == 0)
+	{
+	}
+	moveStraightDistance(127,1200);
+	moveStraightDistance(-127,500);
+	turnRight(127,350);
+	moveStraightDistance(127,1500);
+
+	// Continue from Middle Zone (Left)
+	while (SensorValue[bumperLeft] == 0)
+	{
+	}
+	moveStraightDistance(127,800);
+	moveStraightDistance(-127,600);
+
+	// Continue from Middle Zone (Left)
+	while (SensorValue[bumperLeft] == 0)
+	{
+	}
+	moveStraightDistance(127,1000);
+	moveStraightDistance(-127,1100);
 }
