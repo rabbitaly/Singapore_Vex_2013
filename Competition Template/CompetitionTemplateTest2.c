@@ -557,7 +557,15 @@ task usercontrol()
 
 				/* Intake Rollers [Controller 2] */
 				// Intake push out
-				if (vexRT[Btn6UXmtr2] == 1)
+				if (vexRT[Btn6DXmtr2] == 1)
+				{
+					motor[intakeRollers] = -80;
+				}
+				else if (vexRT[Btn5DXmtr2] == 1)
+				{
+					motor[intakeRollers] = 80;
+				}
+				else if(vexRT[Btn6UXmtr2] == 1)
 				{
 					motor[intakeRollers] = -127;
 				}
@@ -577,20 +585,20 @@ task usercontrol()
 		else
 		{
 
-			/* Drive //
+			/* Drive /*/
 			motor[leftBack] = cubicMap(vexRT[Ch2]+ vexRT[Ch4]);
 			motor[leftMiddle] = cubicMap(vexRT[Ch2]+ vexRT[Ch4]);
 			motor[leftFront] = cubicMap(vexRT[Ch2]+ vexRT[Ch4]);
 			motor[rightBack] = cubicMap(vexRT[Ch2]- vexRT[Ch4]);
 			motor[rightMiddle] = cubicMap(vexRT[Ch2]- vexRT[Ch4]);
 			motor[rightFront] = cubicMap(vexRT[Ch2]- vexRT[Ch4]);
-			*/
-			/* Left Drive */
+
+			/* Left Drive //
 			motor[leftFront] = vexRT[Ch3];
 			motor[leftMiddle] = vexRT[Ch3];
 			motor[leftBack] = vexRT[Ch3];
 
-			/* Right Drive */
+			/* Right Drive //
 			motor[rightFront] = vexRT[Ch2];
 			motor[rightMiddle] = vexRT[Ch2];
 			motor[rightBack] = vexRT[Ch2];
