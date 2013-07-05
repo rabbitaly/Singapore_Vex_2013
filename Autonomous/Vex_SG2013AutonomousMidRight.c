@@ -22,54 +22,82 @@
 
 #include "FnLibSingaporeVex2013.h";
 
+int intake = 0;
+
+task intakeStart()
+{
+	while (true)
+	{
+		if (intake == 1)
+		{
+			motor[intakeRollers] = -127;
+		}
+		else if (intake == -1)
+		{
+			motor[intakeRollers] = 127;
+		}
+		else
+		{
+			motor[intakeRollers] = 0;
+		}
+	}
+}
+
 task main()
 {
 	/*Mid Right*/
 	StartTask(intakeStart);
-	ClearTimer(T4);
-	intake = 1;
-	moveSecondTierUp(127,450);
-	moveSecondTierDown(127,50);
-	motor[secondTier]=-127;
-	wait10Msec(50);
-	motor[secondTier]=0;
-	moveStraightDistance(100,50);
-	stopPid(0.6,0.3);
-	intake = 0;
-	moveStraightDistance(127,1800);
-	stopPid(0.6,0.3);
-	moveFirstTierUp(127,1200);
-	motor[firstTierLeft]=20;
-	motor[firstTierRight]=20;
-	moveStraightDistance(127,200);
-	stopPid(0.6,0.3);
-	intake = -1;
-	wait10Msec(300);
-	intake = 0;
-	moveStraightDistance(-127,200);
-	stopPid(0.6,0.3);
-	moveFirstTierDown(127,20);
-	turnLeft(127,70);
-	moveStraightDistance(-127,1500);
-	while(SensorValue[bumperLeft]==0)
-	{
-	}
-	moveStraightDistance(127,100);
-	pushBridge(80,900);
-	moveStraightDistance(100,200);
-	moveStraightDistance(-100,420);
-	stopPid(0.6,0.3);
-	while(SensorValue[bumperLeft]==0)
-	{
-	}
-	moveStraightDistance(100,300);
-	stopPid(0.6,0.3);
-	alignFoward(100);
-	turnLeft(127,250);
-	moveFirstTierUp(127,900);
-	moveStraightDistance(100,800);
-	stopPid(0.6,0.3);
-	stopLift();
-	moveStraightDistance(-100,100);
-	stopPid(0.6,0.3);
+		ClearTimer(T4);
+		moveSecondTierUp(127,450);
+		moveSecondTierDown(127,50);
+		intake = 1;
+		motor[secondTier]=-127;
+		wait10Msec(50);
+		motor[secondTier]=0;
+		moveStraightDistance(127,350);
+		alignFoward(127);
+		stopPid(0.6,0.3);
+		moveStraightDistance(100,100);
+		stopPid(0.6,0.3);
+		intake = 0;
+		wait10Msec(10);
+		turnLeft(100,250);
+		stopTurn(0.6,0.3);
+		moveStraightDistance(100,1450);
+		stopPid(0.6,0.3);
+		moveFirstTierUp(127,1200);
+		motor[firstTierLeft] = 10;
+		motor[firstTierRight] = 10;
+		moveStraightDistance(100,200);
+		turnRight(50,25);
+		stopTurn(0.6,0.3);
+		moveStraightTime(50,500);
+		intake = -1;
+		wait10Msec(300);
+		intake = 0;
+		moveStraightDistance(-50,250);
+		moveFirstTierDown(127,50);
+		turnRight(127,40);
+		moveStraightDistance(-100, 1400);
+		while(SensorValue[bumperLeft]==0)
+		{
+		}
+		moveStraightDistance(127,300);
+		pushBridge(80,900);
+		moveStraightDistance(100,200);
+		moveStraightDistance(-100,420);
+		stopPid(0.6,0.3);
+		while(SensorValue[bumperLeft]==0)
+		{
+		}
+		moveStraightDistance(100,300);
+		stopPid(0.6,0.3);
+		alignFoward(100);
+		turnLeft(127,250);
+		moveFirstTierUp(127,900);
+		moveStraightDistance(100,800);
+		stopPid(0.6,0.3);
+		stopLift();
+		moveStraightDistance(-100,100);
+		stopPid(0.6,0.3);
 }

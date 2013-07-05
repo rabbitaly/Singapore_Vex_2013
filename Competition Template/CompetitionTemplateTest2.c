@@ -44,11 +44,12 @@ int cubicMap(int x)
 	return ((((x*3)/25)*((x*3)/25)*((x*3)/25)/27 + x/2)*2)/3;
 }
 int intake = 0;
+/*
 task intakeBallOut()
 {
-	intake=-1;
-	wait10Msec(100);
-	intake = 0;
+intake=-1;
+wait10Msec(100);
+intake = 0;
 }
 
 int armDelay=0;
@@ -56,55 +57,56 @@ int armPos=0;
 
 task armToPos()
 {
-	wait1Msec(armDelay);
-	if(armPos<SensorValue[in1])
-	{
-		while(SensorValue[in1]>armPos)
-		{
-			motor[firstTierLeft]=-127;
-			motor[firstTierRight]=-127;
-		}
-		motor[firstTierLeft]=0;
-		motor[firstTierRight]=0;
-	}
-	else if(armPos>SensorValue[in1])
-	{
-		while(SensorValue[in1]<armPos)
-		{
-			motor[firstTierLeft]=127;
-			motor[firstTierRight]=127;
-		}
-		motor[firstTierLeft]=15;
-		motor[firstTierRight]=15;
-	}
+wait1Msec(armDelay);
+if(armPos<SensorValue[in1])
+{
+while(SensorValue[in1]>armPos)
+{
+motor[firstTierLeft]=-127;
+motor[firstTierRight]=-127;
+}
+motor[firstTierLeft]=0;
+motor[firstTierRight]=0;
+}
+else if(armPos>SensorValue[in1])
+{
+while(SensorValue[in1]<armPos)
+{
+motor[firstTierLeft]=127;
+motor[firstTierRight]=127;
+}
+motor[firstTierLeft]=15;
+motor[firstTierRight]=15;
+}
 }
 
 int tierPos=0;
 int tierDelay=0;
 task tierToPos()
 {
-	wait1Msec(tierDelay);
-	if(tierPos<SensorValue[in2])
-	{
-		while(SensorValue[in2]>tierPos)
-		{
-			motor[secondTier]=-127;
-		}
-		motor[secondTier]=0;
-	}
-	else if(tierPos>SensorValue[in2])
-	{
-		while(SensorValue[in2]<tierPos)
-		{
-			motor[secondTier]=127;
-		}
-		while(SensorValue[in2]>0)
-		{
-			motor[secondTier]=-127;
-		}
-		motor[secondTier]=0;
-	}
+wait1Msec(tierDelay);
+if(tierPos<SensorValue[in2])
+{
+while(SensorValue[in2]>tierPos)
+{
+motor[secondTier]=-127;
 }
+motor[secondTier]=0;
+}
+else if(tierPos>SensorValue[in2])
+{
+while(SensorValue[in2]<tierPos)
+{
+motor[secondTier]=127;
+}
+while(SensorValue[in2]>0)
+{
+motor[secondTier]=-127;
+}
+motor[secondTier]=0;
+}
+}
+*/
 
 task intakeStart()
 {
@@ -278,12 +280,12 @@ task autonomous()
 		stopPid(0.6,0.3);
 		turnRight(90, 200);
 		moveStraightDistance(127,700);
-
 		StopTask(intakeStart);
 	}
 	else if(programs ==2)
 	{
 		/*Mid Left*/
+		/*
 		StartTask(intakeStart);
 		ClearTimer(T4);
 		armPos = 900;
@@ -306,7 +308,7 @@ task autonomous()
 		moveStraightDistance(-127,400);
 		while(SensorValue[bumperLeft]==0&&SensorValue[bumperRight]==0)
 		{
-			intake = 0;
+		intake = 0;
 		}
 		StopTask(armToPos);
 		armPos = 900;
@@ -324,20 +326,19 @@ task autonomous()
 		turnLeft(127,150);
 		moveStraightDistance(-100,700);
 		stopPid(0.6,0.3);
-
 		while(SensorValue[bumperLeft]==0&&SensorValue[bumperRight]==0)
 		{
-			StartTask(intakeBallOut);
-			if(time1[T4]>12000)
-			{
-				intake=-1;
-				wait10Msec(50);
-				moveStraightDistance(127,900);
-				moveStraightDistance(-127,300);
-				while(true)
-				{
-				}
-			}
+		StartTask(intakeBallOut);
+		if(time1[T4]>12000)
+		{
+		intake=-1;
+		wait10Msec(50);
+		moveStraightDistance(127,900);
+		moveStraightDistance(-127,300);
+		while(true)
+		{
+		}
+		}
 		}
 		armDelay = 1500;
 		armPos = 1100;
@@ -345,36 +346,44 @@ task autonomous()
 		moveStraightDistance(127,1100);
 		intake = -1;
 		wait10Msec(100);
-
-		/*
-		intake = 1;
+		*/
+		StartTask(intakeStart);
+		ClearTimer(T4);
 		moveSecondTierUp(127,450);
 		moveSecondTierDown(127,50);
+		intake = 1;
 		motor[secondTier]=-127;
 		wait10Msec(50);
 		motor[secondTier]=0;
-		moveStraightDistance(100,50);
+		moveStraightDistance(127,350);
+		alignFoward(127);
+		stopPid(0.6,0.3);
+		moveStraightDistance(100,100);
 		stopPid(0.6,0.3);
 		intake = 0;
-		moveStraightDistance(127,1800);
+		wait10Msec(10);
+		turnRight(100,250);
+		stopTurn(0.6,0.3);
+		moveStraightDistance(100,1450);
 		stopPid(0.6,0.3);
 		moveFirstTierUp(127,1200);
-		motor[firstTierLeft]=20;
-		motor[firstTierRight]=20;
-		moveStraightDistance(127,200);
-		stopPid(0.6,0.3);
+		motor[firstTierLeft] = 10;
+		motor[firstTierRight] = 10;
+		moveStraightDistance(100,200);
+		turnLeft(50,40);
+		stopTurn(0.6,0.3);
+		moveStraightTime(50,500);
 		intake = -1;
 		wait10Msec(300);
 		intake = 0;
-		moveStraightDistance(-127,200);
-		stopPid(0.6,0.3);
-		moveFirstTierDown(127,20);
-		turnRight(127,70);
-		moveStraightDistance(-127,1500);
+		moveStraightDistance(-50,250);
+		moveFirstTierDown(127,50);
+		turnLeft(127,25);
+		moveStraightDistance(-100, 1400);
 		while(SensorValue[bumperLeft]==0)
 		{
 		}
-		moveStraightDistance(127,100);
+		moveStraightDistance(127,300);
 		pushBridge(80,900);
 		moveStraightDistance(100,200);
 		moveStraightDistance(-100,420);
@@ -392,10 +401,10 @@ task autonomous()
 		stopLift();
 		moveStraightDistance(-100,100);
 		stopPid(0.6,0.3);
-		*/
 	}
 	else if(programs ==3)
 	{
+		/*
 		StartTask(intakeStart);
 		ClearTimer(T4);
 		armPos = 900;
@@ -418,7 +427,7 @@ task autonomous()
 		stopPid(0.6,0.3);
 		while(SensorValue[bumperLeft]==0&&SensorValue[bumperRight]==0)
 		{
-			intake = 0;
+		intake = 0;
 		}
 		StopTask(armToPos);
 		armPos = 900;
@@ -437,16 +446,16 @@ task autonomous()
 		stopPid(0.6,0.3);
 		while(SensorValue[bumperLeft]==0&&SensorValue[bumperRight]==0)
 		{
-			StartTask(intakeBallOut);
-			if(time1[T4]>12000)
-			{
-				intake=-1;
-				moveStraightDistance(127,900);
-				moveStraightDistance(-127,300);
-				while(true)
-				{
-				}
-			}
+		StartTask(intakeBallOut);
+		if(time1[T4]>12000)
+		{
+		intake=-1;
+		moveStraightDistance(127,900);
+		moveStraightDistance(-127,300);
+		while(true)
+		{
+		}
+		}
 		}
 		armDelay=1500;
 		armPos = 1100;
@@ -454,38 +463,45 @@ task autonomous()
 		moveStraightDistance(127,1100);
 		intake = -1;
 		wait10Msec(100);
+		*/
 		/*Mid Right*/
-		/*
 		StartTask(intakeStart);
 		ClearTimer(T4);
-		intake = 1;
 		moveSecondTierUp(127,450);
 		moveSecondTierDown(127,50);
+		intake = 1;
 		motor[secondTier]=-127;
 		wait10Msec(50);
 		motor[secondTier]=0;
-		moveStraightDistance(100,50);
+		moveStraightDistance(127,350);
+		alignFoward(127);
+		stopPid(0.6,0.3);
+		moveStraightDistance(100,100);
 		stopPid(0.6,0.3);
 		intake = 0;
-		moveStraightDistance(127,1800);
+		wait10Msec(10);
+		turnLeft(100,250);
+		stopTurn(0.6,0.3);
+		moveStraightDistance(100,1450);
 		stopPid(0.6,0.3);
 		moveFirstTierUp(127,1200);
-		motor[firstTierLeft]=20;
-		motor[firstTierRight]=20;
-		moveStraightDistance(127,200);
-		stopPid(0.6,0.3);
+		motor[firstTierLeft] = 10;
+		motor[firstTierRight] = 10;
+		moveStraightDistance(100,200);
+		turnRight(50,25);
+		stopTurn(0.6,0.3);
+		moveStraightTime(50,500);
 		intake = -1;
 		wait10Msec(300);
 		intake = 0;
-		moveStraightDistance(-127,200);
-		stopPid(0.6,0.3);
-		moveFirstTierDown(127,20);
-		turnLeft(127,70);
-		moveStraightDistance(-127,1500);
+		moveStraightDistance(-50,250);
+		moveFirstTierDown(127,50);
+		turnRight(127,40);
+		moveStraightDistance(-100, 1400);
 		while(SensorValue[bumperLeft]==0)
 		{
 		}
-		moveStraightDistance(127,100);
+		moveStraightDistance(127,300);
 		pushBridge(80,900);
 		moveStraightDistance(100,200);
 		moveStraightDistance(-100,420);
@@ -503,7 +519,6 @@ task autonomous()
 		stopLift();
 		moveStraightDistance(-100,100);
 		stopPid(0.6,0.3);
-		*/
 	}
 }
 

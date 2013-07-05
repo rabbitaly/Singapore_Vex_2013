@@ -48,34 +48,41 @@ task main()
 	/*Mid Left*/
 	StartTask(intakeStart);
 	ClearTimer(T4);
-	intake = 1;
 	moveSecondTierUp(127,450);
 	moveSecondTierDown(127,50);
+	intake = 1;
 	motor[secondTier]=-127;
 	wait10Msec(50);
 	motor[secondTier]=0;
-	moveStraightDistance(100,50);
+	moveStraightDistance(127,350);
+	alignFoward(127);
+	stopPid(0.6,0.3);
+	moveStraightDistance(100,100);
 	stopPid(0.6,0.3);
 	intake = 0;
-	moveStraightDistance(127,1800);
+	wait10Msec(10);
+	turnRight(100,250);
+	stopTurn(0.6,0.3);
+	moveStraightDistance(100,1450);
 	stopPid(0.6,0.3);
 	moveFirstTierUp(127,1200);
-	motor[firstTierLeft]=20;
-	motor[firstTierRight]=20;
-	moveStraightDistance(127,200);
-	stopPid(0.6,0.3);
+	motor[firstTierLeft] = 10;
+	motor[firstTierRight] = 10;
+	moveStraightDistance(100,200);
+	turnLeft(50,40);
+	stopTurn(0.6,0.3);
+	moveStraightTime(50,500);
 	intake = -1;
 	wait10Msec(300);
 	intake = 0;
-	moveStraightDistance(-127,200);
-	stopPid(0.6,0.3);
-	moveFirstTierDown(127,20);
-	turnRight(127,70);
-	moveStraightDistance(-127,1500);
+	moveStraightDistance(-50,250);
+	moveFirstTierDown(127,50);
+	turnLeft(127,25);
+	moveStraightDistance(-100, 1400);
 	while(SensorValue[bumperLeft]==0)
 	{
 	}
-	moveStraightDistance(127,100);
+	moveStraightDistance(127,300);
 	pushBridge(80,900);
 	moveStraightDistance(100,200);
 	moveStraightDistance(-100,420);
